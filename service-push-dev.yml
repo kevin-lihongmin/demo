@@ -1,0 +1,46 @@
+primus:
+  redis:
+    host: 10.4.100.143
+    port: 6379
+    timeout: 5000
+    password: wine@redis
+  zookeeper:
+    url: 10.4.100.143:2181
+
+
+spring:
+  rabbitmq:
+    host: 10.4.100.143
+    port: 5672
+    username: wine
+    password: wine@rabbit
+  jpa:
+    database: mysql
+    generate-ddl: true
+    open-in-view: true
+    hibernate:
+      ddl-auto: update
+      naming:
+        physical-strategy: com.biz.primus.ms.base.jpa.util.UnderscoreNameCustomizer
+  datasource:
+    url: jdbc:mysql://10.4.100.143:3306/push?createDatabaseIfNotExist=true&useSSL=false&characterEncoding=utf8&useUnicode=true
+    username: root
+    password: wine@mysql
+    tomcat:
+      max-active: 3
+      max-idle: 2
+      min-idle: 1
+      test-on-borrow: true
+      validation-query: select 1
+      time-between-eviction-runs-millis: 360000
+      initial-size: 1
+push:
+  setting:
+    jpushAppkey: 5f325dfa0a77a94cbfed6f6b
+    jPushAppMasterSecret: f0f073fe2350bb814224b6ac
+    isProduction: false
+    miAppMasterSecret: +SDrweuoPl6htNBlu7lTrQ==
+    miPackageName: com.wkhgs.b2c
+    notificationTitle: 吾空花果山
+    miRetryTimes: 3
+

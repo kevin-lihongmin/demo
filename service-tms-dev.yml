@@ -1,0 +1,39 @@
+primus:
+  redis:
+    host: 10.4.100.143
+    port: 6379
+    timeout: 5000
+    password: wine@redis
+  zookeeper:
+    url: 10.4.100.143:2181
+
+spring:
+  rabbitmq:
+    host: 10.4.100.143
+    port: 5672
+    username: wine
+    password: wine@rabbit
+  jpa:
+    database: mysql
+    generate-ddl: true
+    open-in-view: true
+    hibernate:
+      ddl-auto: update
+      dialect: org.hibernate.dialect.MySQL5Dialect
+      naming:
+        physical-strategy: com.biz.primus.ms.base.jpa.util.UnderscoreNameCustomizer
+  datasource:
+    url: jdbc:mysql://10.4.100.143:3306/tms?createDatabaseIfNotExist=true&useSSL=false&characterEncoding=utf8&useUnicode=true
+    username: root
+    password: wine@mysql
+    type: com.alibaba.druid.pool.DruidDataSource
+    driverClassName: com.mysql.jdbc.Driver
+  cloud:
+    stream:
+      default-binder: rabbit
+      bindings:
+        oms-order-delivery-begin:
+          destination: oms-order-delivery-begin
+        tms-order-evaluate:
+          destination: tms-order-evaluate
+

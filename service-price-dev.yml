@@ -1,0 +1,38 @@
+primus:
+  redis:
+    host: 10.4.100.143
+    port: 6379
+    timeout: 5000
+    password: wine@redis
+  zookeeper:
+    url: 10.4.100.143:2181
+
+
+spring:
+  rabbitmq:
+    host: 10.4.100.143
+    port: 5672
+    username: wine
+    password: wine@rabbit
+  jpa:
+    database: mysql
+    generate-ddl: true
+    open-in-view: true
+    hibernate:
+      ddl-auto: update
+      naming:
+        physical-strategy: com.biz.primus.ms.base.jpa.util.UnderscoreNameCustomizer
+  datasource:
+    url: jdbc:mysql://10.4.100.143:3306/price?createDatabaseIfNotExist=true&useSSL=false&characterEncoding=utf8&useUnicode=true
+    username: root
+    password: wine@mysql
+    tomcat:
+      max-active: 3
+      max-idle: 2
+      min-idle: 1
+      test-on-borrow: true
+      validation-query: select 1
+      time-between-eviction-runs-millis: 360000
+      initial-size: 1
+
+

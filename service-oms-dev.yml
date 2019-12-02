@@ -1,0 +1,84 @@
+primus:
+  redis:
+    host: 10.4.100.143
+    port: 6379
+    timeout: 5000
+    password: wine@redis
+  zookeeper:
+    url: 10.4.100.143:2181
+  component:
+    service:
+      payment: service-payment
+
+spring:
+  rabbitmq:
+    host: 10.4.100.143
+    port: 5672
+    username: wine
+    password: wine@rabbit
+  jpa:
+    database: mysql
+    generate-ddl: true
+    open-in-view: true
+    hibernate:
+      ddl-auto: update
+      naming:
+        physical-strategy: com.biz.primus.ms.base.jpa.util.UnderscoreNameCustomizer
+  datasource:
+    url: jdbc:mysql://10.4.100.143:3306/oms?createDatabaseIfNotExist=true&useSSL=false&characterEncoding=utf8&useUnicode=true
+    username: root
+    password: wine@mysql
+    tomcat:
+      max-active: 3
+      max-idle: 2
+      min-idle: 1
+      test-on-borrow: true
+      validation-query: select 1
+      time-between-eviction-runs-millis: 360000
+      initial-size: 1
+  cloud:
+    stream:
+      default-binder: rabbit
+      bindings:
+        #--订单状态--
+        oms-order-begin:
+          group: oms
+        oms-order-allocated:
+          group: oms
+        oms-order-printed:
+          group: oms
+        oms-order-outbound:
+          group: oms
+        oms-order-finished:
+          group: oms
+        #--收单--
+        oms-returns-data-input:
+          group: oms
+        oms-order-data:
+          group: oms
+        oms-returns-data:
+          group: oms
+        oms-refund-data:
+          group: oms
+        #--订单动作--
+        oms-order-cancel:
+          group: oms
+        oms-order-delivery-begin:
+          group: oms
+        oms-order-delivery-cancel:
+          group: oms
+        #--退单状态--
+        oms-return-begin:
+          group: oms
+        oms-return-audited-pass:
+          group: oms
+        oms-return-audited-reject:
+          group: oms
+        oms-return-returning:
+          group: oms
+        oms-return-finishd:
+          group: oms
+        #--退单动作--
+        oms-return-cancel:
+          group: oms
+

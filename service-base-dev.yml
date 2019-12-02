@@ -1,0 +1,56 @@
+eureka:
+  client:
+    service-url:
+      defaultZone: ${EUREKA_SERVER:http://biz:bizATeureka!@10.4.100.115:7777/eureka/}
+  instance:
+    prefer-ip-address: true
+  server:
+    eviction-interval-timer-in-ms: 1000
+
+hystrix:
+  command:
+    default:
+      execution:
+        timeout:
+          enabled: false
+        isolation:
+          thread:
+            timeoutInMilliseconds: 5000
+      circuitBreaker:
+        enabled: true
+        requestVolumeThreshold: 3  
+  threadpool:
+    default:
+      ##并发执行的最大线程数，默认10
+      coreSize: 200
+      ##BlockingQueue的最大队列数
+      maxQueueSize: 200
+      ##即使maxQueueSize没有达到，达到queueSizeRejectionThreshold该值后，请求也会被拒绝
+      queueSizeRejectionThreshold: 50
+      execution:
+        timeout:
+          enabled: true
+        isolation:
+          strategy: THREAD
+          semaphore:
+            maxConcurrentRequests: 1000
+          thread:
+            timeoutInMilliseconds: 30000
+ribbon:
+  ReadTimeout: 30000
+feign:
+  hystrix:
+    enabled: true
+## 刷新时，关闭安全验证
+management:
+  security:
+    enabled: false
+primus:
+  environment:
+    dev: true
+  component:
+    service:
+      geo: service-geo
+    
+logging:
+  config: classpath:logback.xml
